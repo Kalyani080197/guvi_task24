@@ -1,0 +1,73 @@
+1. ID
+IDs are unique identifiers for elements. Here's an example for the "Full Name" input field:
+WebElement fullName = driver.findElement(By.id("name"));
+
+2. ClassName
+Class names are used to locate elements by their class attribute. Here's an example for the "Sign Up" button:
+WebElement signUpButton = driver.findElement(By.className("sign-up-btn"));
+
+3. TagName
+Tag names locate elements by their HTML tag. Here's an example to find all input fields:
+List<WebElement> inputFields = driver.findElements(By.tagName("input"));
+
+4. CSS Selector
+CSS Selectors are powerful and flexible. Here's an example for the "Email" input field:
+WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
+
+5. XPath
+XPath is used to navigate through elements and attributes in an XML document. Here's an example for the "Password" input field:
+WebElement passwordField = driver.findElement(By.xpath("//input[@type='password']"));
+
+Full Example with All Locators
+Below is a complete example using all the locators to interact with different elements on the registration page:
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
+
+public class GuviRegister {
+    public static void main(String[] args) {
+        // Set the path to your ChromeDriver
+        System.setProperty("webdriver.chrome.driver", "path_to_your_chromedriver"); // e.g., "C:/path_to_chromedriver/chromedriver.exe"
+
+        // Create a new instance of the Chrome driver
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Navigate to the registration page
+            driver.get("https://www.guvi.in/register");
+
+            // 1. Locate by ID
+            WebElement fullName = driver.findElement(By.id("name"));
+            fullName.sendKeys("Test User");
+
+            // 2. Locate by ClassName
+            WebElement signUpButton = driver.findElement(By.className("sign-up-btn"));
+            // signUpButton.click(); // Uncomment to perform a click
+
+            // 3. Locate by TagName
+            List<WebElement> inputFields = driver.findElements(By.tagName("input"));
+            for (WebElement inputField : inputFields) {
+                System.out.println("Input field: " + inputField.getAttribute("name"));
+            }
+
+            // 4. Locate by CSS Selector
+            WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
+            emailField.sendKeys("testuser@example.com");
+
+            // 5. Locate by XPath
+            WebElement passwordField = driver.findElement(By.xpath("//input[@type='password']"));
+            passwordField.sendKeys("StrongPassword123");
+
+            // Perform any additional actions as needed
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the browser
+            driver.quit();
+        }
+    }
+}
